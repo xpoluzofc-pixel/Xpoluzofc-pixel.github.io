@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Camila 💖</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  text-align: center;
+  background: black;
+  color: white;
+  overflow: hidden;
+}
+
+#inicio {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #ff4d6d;
+  color: white;
+}
+
+#principal {
+  display: none;
+  background: linear-gradient(45deg, #ff4d6d, #ff99c8, #c77dff);
+  background-size: 400% 400%;
+  animation: fundo 10s infinite alternate;
+  min-height: 100vh;
+}
+
+@keyframes fundo {
+  0% {background-position: left;}
+  100% {background-position: right;}
+}
+
+h1 {
+  font-size: 45px;
+  margin-top: 20px;
+}
+
+#game {
+  position: relative;
+  height: 300px;
+}
+
+.heart {
+  position: absolute;
+  font-size: 30px;
+  cursor: pointer;
+  animation: cair 5s linear forwards;
+}
+
+@keyframes cair {
+  0% { transform: translateY(-50px); }
+  100% { transform: translateY(300px); }
+}
+
+#mensagemFinal {
+  display: none;
+  padding: 20px;
+  font-size: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="inicio">
+  <h2>Camila... 💖</h2>
+  <p>Prepare seu coração e aperte o botão...</p>
+  <button onclick="entrar()">Entrar 😏</button>
+</div>
+
+<div id="principal">
+  <h1>Eu Te Amo 💖</h1>
+  <div id="contador"></div>
+
+  <p>Clique em 10 corações para desbloquear algo especial 😏</p>
+  <div id="game"></div>
+
+  <div id="mensagemFinal">
+    💌 Camila, em apenas 1 mês você se tornou a melhor coisa que eu já conheci.  
+    Você trouxe luz e felicidade pra minha vida.  
+    Eu amo cada detalhe seu, cada sorriso, cada momento.  
+    Eu te amo MUITO 💖✨  
+
+    <br><br>
+    💍 Quer continuar escrevendo nossa história comigo?
+  </div>
+
+  <!-- Spotify -->
+  <iframe style="border-radius:12px"
+  src="https://open.spotify.com/embed/track/ID_DA_MUSICA"
+  width="300" height="80"
+  frameBorder="0"
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+  </iframe>
+</div>
+
+<script>
+
+function entrar() {
+  document.getElementById("inicio").style.display = "none";
+  document.getElementById("principal").style.display = "block";
+}
+
+// CONTADOR 1 MÊS
+const dataInicio = new Date();
+dataInicio.setMonth(dataInicio.getMonth() - 1);
+
+function atualizarContador() {
+  const agora = new Date();
+  const diferenca = agora - dataInicio;
+
+  const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+  document.getElementById("contador").innerHTML =
+    "Estamos juntos há " + dias + " dias 💞";
+}
+
+setInterval(atualizarContador, 1000);
+
+// JOGO
+let pontos = 0;
+
+function criarCoracao() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 90 + "%";
+
+  heart.onclick = function() {
+    pontos++;
+    heart.remove();
+
+    if (pontos >= 10) {
+      document.getElementById("mensagemFinal").style.display = "block";
+      fogos();
+    }
+  };
+
+  document.getElementById("game").appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
+
+setInterval(criarCoracao, 800);
+
+// FOGOS
+function fogos() {
+  for (let i = 0; i < 60; i++) {
+    const brilho = document.createElement("div");
+    brilho.innerHTML = "✨";
+    brilho.style.position = "absolute";
+    brilho.style.left = Math.random() * 100 + "vw";
+    brilho.style.top = Math.random() * 100 + "vh";
+    brilho.style.fontSize = "25px";
+    document.body.appendChild(brilho);
+
+    setTimeout(() => {
+      brilho.remove();
+    }, 2000);
+  }
+}
+
+</script>
+
+</body>
+  </html>
